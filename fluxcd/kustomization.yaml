@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - gotk-components.yaml
+  - gotk-sync.yaml
+patches:
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: all
+      spec:
+        template:
+          spec:
+            containers:
+              - name: manager
+                env:
+                  - name: "HTTPS_PROXY"
+                    value: "https://proxy.example.com"
+                  - name: "NO_PROXY"
+                    value: ".cluster.local.,.cluster.local,.svc"
+    target:
+      kind: Deployment
+      labelSelector: app.kubernetes.io/part-of=flux
