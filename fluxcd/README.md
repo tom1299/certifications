@@ -9,3 +9,25 @@ https://github.com/fluxcd/flux2-multi-tenancy
 
 Implement above
 Try watching for changes: https://fluxcd.io/flux/gitops-toolkit/source-watcher/
+
+
+# Using kind:
+Create the cluster:
+```bash
+kind create cluster --config ./fluxcd/kind/local-1-kind-config.yaml
+```
+Run the installation script:
+```bash
+./fluxcd/kind/install-air-gapped.sh
+```
+
+Run the flux bootstrap command:
+```bash
+flux bootstrap git \
+  --url=https://github.com/CICDior/fleet-infra.git \
+  --username=tom1299 \
+  --password=$GITUB_TOKEN \
+  --token-auth=true \
+  --path=clusters/staging/kind-local-1 \
+  --components-extra image-reflector-controller,image-automation-controller
+```
