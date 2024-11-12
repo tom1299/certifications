@@ -23,3 +23,11 @@ nodes:
       hostPort: 8081
       listenAddress: "0.0.0.0"
       protocol: TCP
+    - containerPort: 30952
+      hostPort: 8080
+      listenAddress: "0.0.0.0"
+      protocol: TCP
+    - containerPort: 30953
+      hostPort: 8443
+      listenAddress: "0.0.0.0"
+      protocol: TCP
